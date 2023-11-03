@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdown_editor/data/controllers/home_controller.dart';
-import 'package:mdown_editor/views/editor_widget.dart';
+import 'package:mdown_editor/views/editor/editor_widget.dart';
 import 'package:mdown_editor/views/header/header_menu.dart';
 import 'package:mdown_editor/views/mdown_widget.dart';
 import 'package:mdown_editor/views/middle_divider.dart';

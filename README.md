@@ -1,16 +1,54 @@
-# mdown_editor
+# Flutter Markdown Editor & Previewer
 
-A new Flutter project.
+This Flutter app provides a user-friendly interface to edit and preview Markdown files. Markdown is a lightweight markup language used for formatting text. It is widely used for creating documentation, README files, and more. If you're new to Markdown, you can learn more about it from the official Markdown guide.
+
+## Features
+
+- [x] Full-featured custom text editor.
+- [x] Live Markdown preview.
+- [ ] File load and save functionality.
+- [ ] Editing options (e.g., bold, italics, headings).
+- [ ] Preferences settings (e.g., theme customization).
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To get started with the app, follow these steps:
 
-A few resources to get you started if this is your first Flutter project:
+1. Clone this repository to your local machine:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+   ```bash
+   git clone https://github.com/your-username/flutter-markdown-editor.git
+   ```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Navigate to the project directory:
+
+   ```bash
+   cd flutter-markdown-editor
+   ```
+
+3. Install the required packages:
+
+   ```bash
+   flutter pub get
+   ```
+
+4. Run the app on your device or emulator:
+
+   ```bash
+   flutter run
+   ```
+
+## Contributing
+
+Contributions are welcome! If you'd like to add new features, fix bugs, or improve the app, please open an issue or create a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Acknowledgments
+
+- [Marked - A Markdown parser](https://pub.dev/packages/marked)
+- [Flutter](https://flutter.dev/)
+
+Happy Markdown editing and previewing!

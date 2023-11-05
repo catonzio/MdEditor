@@ -1,10 +1,15 @@
 import 'package:get/get.dart';
+import 'package:mdown_editor/data/controllers/editor_controllers/basic_file.dart';
 import 'package:mdown_editor/data/models/cursor.dart';
 
 class DocumentService extends GetxService {
-  RxList<String> lines = ["ciao a tutti", "come va?", "bene grazie"].obs;
+  RxList<String> lines =
+      contentList.obs; // ["ciao a tutti", "come va?", "bene grazie"].obs;
 
   Cursor cursor = Cursor();
+
+  bool isControlPressed = false;
+  bool isShiftPressed = false;
 
   final RxString _clipboardText = ''.obs;
   String get clipboardText => _clipboardText.value;
@@ -115,11 +120,14 @@ class DocumentService extends GetxService {
 
     // handle join lines
     if (cursor.column >= l.length) {
-      Cursor cur = cursor.copyWith();
-      lines[cursor.line] += lines[cursor.line + 1];
-      goDown();
-      deleteLine();
-      cursor = cur;
+      // Cursor cur = cursor.copyWith();
+      // lines[cursor.line] += lines[cursor.line + 1];
+      // goDown();
+      // deleteLine();
+      // cursor = cur;
+      lines.removeAt(cursor.line);
+      goUp();
+      goEndOfLine();
       return;
     }
 
@@ -130,9 +138,13 @@ class DocumentService extends GetxService {
 
     // handle erase entire line
     if (lines.length > 1 && (left + right).isEmpty) {
-      lines.removeAt(cur.line);
-      goUp();
-      goStartOfLine();
+      if (lines[cursor.line].isEmpty) {
+        lines.removeAt(cursor.line);
+        goUp();
+        goEndOfLine();
+      } else {
+        lines[cursor.line] = "";
+      }
       return;
     }
 

@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Mdwon Editor',
       theme: ThemeData.dark(useMaterial3: true),
       initialBinding: InitialBindings(),

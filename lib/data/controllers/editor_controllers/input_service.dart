@@ -20,31 +20,40 @@ class InputService extends GetxService {
       'Home': (RawKeyEvent event) {
         if (event.isControlPressed) {
           document.goStartOfDocument();
+          return true;
         } else {
           document.goStartOfLine();
+          return false;
         }
       },
       'End': (RawKeyEvent event) {
         if (event.isControlPressed) {
           document.goEndOfDocument();
+          return true;
         } else {
           document.goEndOfLine();
+          return false;
         }
       },
       'Arrow Up': (RawKeyEvent event) {
         document.goUp();
+        return true;
       },
       'Arrow Down': (RawKeyEvent event) {
         document.goDown();
+        return true;
       },
       'Arrow Left': (RawKeyEvent event) {
         document.goLeft();
+        return true;
       },
       'Arrow Right': (RawKeyEvent event) {
         document.goRight();
+        return true;
       },
       'Enter': (RawKeyEvent event) {
         document.insertNewLine();
+        return true;
       },
       'Backspace': (RawKeyEvent event) {
         if (document.cursor.hasSelection) {
@@ -53,6 +62,7 @@ class InputService extends GetxService {
           document.goLeft();
           document.deleteText();
         }
+        return false;
       },
       'Delete': (RawKeyEvent event) {
         if (document.cursor.hasSelection) {
@@ -60,33 +70,62 @@ class InputService extends GetxService {
         } else {
           document.deleteText();
         }
+        return false;
       },
       'Tab': (RawKeyEvent event) {
         document.insertTab();
+        return false;
       },
+      ' ': (RawKeyEvent event) {
+        document.insertText(' ');
+        return false;
+      }
     };
   }
 
-  void handleKeyboardInput(RawKeyEvent event) {
-    if (event.runtimeType.toString() == 'RawKeyDownEvent') {
-      if (events.containsKey(event.logicalKey.keyLabel)) {
-        events[event.logicalKey.keyLabel]!(event);
-      } else {
-        int k = event.logicalKey.keyId;
-        if ((k >= LogicalKeyboardKey.keyA.keyId &&
-                k <= LogicalKeyboardKey.keyZ.keyId) ||
-            (k + 32 >= LogicalKeyboardKey.keyA.keyId &&
-                k + 32 <= LogicalKeyboardKey.keyZ.keyId)) {
-          String ch =
-              String.fromCharCode(97 + k - LogicalKeyboardKey.keyA.keyId);
-          if (event.isControlPressed) {
-            document.command('ctrl+$ch');
-          } else {
-            document.insertText(ch);
-          }
-        }
-      }
+  bool handleKeyboardInput(RawKeyEvent event) {
+    if (event is! RawKeyUpEvent) return false;
+
+    document.isControlPressed = event.isControlPressed;
+    document.isShiftPressed = event.isShiftPressed;
+
+    if (events.containsKey(event.logicalKey.keyLabel)) {
+      return events[event.logicalKey.keyLabel]!(event);
     }
+    int k = event.logicalKey.keyId;
+    String char = event.logicalKey.keyLabel;
+
+    if (isLetter(k)) {
+      if (event.isShiftPressed) {
+        document.insertText(char.toUpperCase());
+      } else {
+        document.insertText(char.toLowerCase());
+      }
+      if (event.isControlPressed) {
+        document.command('ctrl+${char.toLowerCase()}');
+      }
+      return false;
+    }
+    if (isNumber(char)) {
+      document.insertText(char.contains("Numpad")
+          ? char.replaceAll("Numpad", "").trim()
+          : char.toString());
+    }
+    return false;
+    // if (isLetter(k) && event.isControlPressed) {
+    //   String ch =
+    //       String.fromCharCode(97 + k - LogicalKeyboardKey.keyA.keyId);
+
+    //   document.command('ctrl+$ch');
+    // } else {
+    //   String char = event.logicalKey.keyLabel;
+    //   if (char.contains('Numpad')) {
+    //     char = char.replaceAll("Numpad", "").trim();
+    //   }
+    //   if (!char.contains("Shift") && !char.contains("Alt")) {
+    //     document.insertText(char);
+    //   }
+    // }
   }
 
   void handleClick(TapDownDetails details) {
@@ -133,4 +172,18 @@ class InputService extends GetxService {
             document.lines.length - 1));
     return lineNumber;
   }
+}
+
+bool isNumber(String label) {
+  return label.contains('Numpad') ||
+      (label.length == 1 &&
+          label.codeUnitAt(0) >= LogicalKeyboardKey.digit0.keyId &&
+          label.codeUnitAt(0) <= LogicalKeyboardKey.digit9.keyId);
+}
+
+bool isLetter(int k) {
+  return (k >= LogicalKeyboardKey.keyA.keyId &&
+          k <= LogicalKeyboardKey.keyZ.keyId) ||
+      (k + 32 >= LogicalKeyboardKey.keyA.keyId &&
+          k + 32 <= LogicalKeyboardKey.keyZ.keyId);
 }

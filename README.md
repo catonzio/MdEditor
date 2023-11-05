@@ -1,6 +1,6 @@
 # Flutter Markdown Editor & Previewer
 
-This Flutter app provides a user-friendly interface to edit and preview Markdown files. Markdown is a lightweight markup language used for formatting text. It is widely used for creating documentation, README files, and more. If you're new to Markdown, you can learn more about it from the official Markdown guide.
+This Flutter app provides a user-friendly interface to edit and preview Markdown files. Markdown is a lightweight markup language used for formatting text. It is widely used for creating documentation, README files, and more. If you're new to Markdown, you can learn more about it from the official Markdown [guide](https://www.markdownguide.org/).
 
 ## Features
 
@@ -14,25 +14,27 @@ This Flutter app provides a user-friendly interface to edit and preview Markdown
 
 To get started with the app, follow these steps:
 
-1. Clone this repository to your local machine:
+1. Install Flutter. Navigate to the [installation guide](https://docs.flutter.dev/get-started/install) and follow the instructions.
+
+2. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/flutter-markdown-editor.git
+   git clone https://github.com/catonzio/MdEditor.git
    ```
 
-2. Navigate to the project directory:
+3. Navigate to the project directory:
 
    ```bash
-   cd flutter-markdown-editor
+   cd MdEditor
    ```
 
-3. Install the required packages:
+4. Install the required packages:
 
    ```bash
    flutter pub get
    ```
 
-4. Run the app on your device or emulator:
+5. Run the app on your device or emulator:
 
    ```bash
    flutter run
@@ -46,9 +48,9 @@ Contributions are welcome! If you'd like to add new features, fix bugs, or impro
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-## Acknowledgments
+## Packages
 
-- [Marked - A Markdown parser](https://pub.dev/packages/marked)
-- [Flutter](https://flutter.dev/)
+- [flutter_markdown](https://pub.dev/packages/flutter_markdown)
+- [Get](https://pub.dev/packages/get)
 
 Happy Markdown editing and previewing!
